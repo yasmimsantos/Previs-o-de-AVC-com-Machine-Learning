@@ -1,1 +1,1 @@
-# Previsãoo de AVC com Machine-Learning
+# Previsão de AVC com Machine-Learning
