@@ -1,42 +1,40 @@
 '''
- ____________________________________________________________________________________________
-|                                                                                            |
-|                Projeto em Python da Disciplina Ambientes de Computação                     |  
-|                    (CÓDIGO: DIP DCC909 01 AMBIENTES DE COMPUTAÇÃO)                         |
-|                                                                                            |
-|                 Título do Projeto: Previsão de AVC com Machine Learning                    |                                     
-|                                                                                            |
-|                            Yasmim Senden dos Santos 08/02/2022                             |
-|                                                                                            |            
-|     Descrição do Projeto: Aplicar o algoritmo de Machine Learning de Árvores de Decisão    |
-|     para prever a chance de ter AVC ou não, com base em vários fatores.                    |
-|____________________________________________________________________________________________|
+____________________________________________________________________________________________
+|                                                                                           |
+|                                                                                           |
+|                    Project Title: Stroke Prediction With Machine Learning                 |
+|                                                                                           |
+|                         Yasmim Senden dos Santos 08/02/2022                               |
+|                                                                                           |
+|          Project Description: Apply the Decision Trees Machine Learning Algorithm         |
+|          to predict the chance of having a stroke or not, based on several factors.       |
+|___________________________________________________________________________________________|
 
 
 '''
-# O "sklearn" é uma biblioteca do Python utilizada para Machine Learning.
-# O algoritmo "ExtraTrees" cria árvores de decisão.
-# A função “ExtraTreesClassifier()” será utilizada pois o problema dos dados envolve CLASSIFICAÇÃO.
+# "sklearn" is a Python library used for Machine Learning.
+# The "ExtraTrees" algorithm creates decision trees.
+# The “ExtraTreesClassifier()” function will be used because the data problem involves CLASSIFICATION.
 from sklearn.ensemble import ExtraTreesClassifier
 
-# A função "train_test_split" é utilizada para distribuição de dados em dois grupos de forma aleatória.
+# The "train_test_split" function is used to randomly distribute data into two groups.
 from sklearn.model_selection import train_test_split
 
-# Carrega um arquivo csv presente no mesmo diretório no qual o programa está.
+# Load a csv file present in the same directory where the program is.
 import pandas as pd
 arquivoAVC = pd.read_csv('testestroke.csv', delimiter=";")
 
-# Imprime as primeiras 5 linhas
+# Print the first 5 lines
 print(arquivoAVC.head())
 
-# A variável "stroke" contém os dados que serão previstos, que estão na coluna stroke do arquivo csv.
+# The "stroke" variable contains the data that will be predicted, which is in the stroke column of the csv file.
 stroke = arquivoAVC['stroke']
 
-# A variável "restante" contém o restante das colunas do arquivo csv, que são as variáveis preditoras.
+# The "remaining" variable contains the rest of the columns of the csv file, which are the predictor variables.
 restante = arquivoAVC.drop('stroke', axis=1)
 
-# Quando as variáveis stroke e restante são indicadas na função "train_test_split", significa que elas serão separadas em dois grupos aleatórios.
-# O parâmetro “test_size = 0.3” determina que os dados de teste receberão 30% dos dados, e os dados de treino 70%.
+# When stroke and remainder variables are indicated in the "train_test_split" function, it means that they will be separated into two random groups.
+# The parameter “test_size = 0.3” determines that the test data will receive 30% of the data, and the training data 70%.
 restante_treino, restante_teste, stroke_treino, stroke_teste = train_test_split(
     restante, stroke, test_size=0.3)
 
@@ -44,18 +42,18 @@ print(arquivoAVC.shape, restante_treino.shape,
       restante_teste.shape, stroke_treino.shape, stroke_teste.shape)
 
 
-# A função “fit” passa para o algoritmo as variáveis preditoras (restante) e a variável alvo (stroke), com o objetivo de que o algoritmo possa entender a relação entre estes dados e APRENDER a chegar a um modelo ideal.
+# The “fit” function passes to the algorithm the predictor variables (remaining) and the target variable (stroke), with the objective that the algorithm can understand the relationship between these data and LEARN to arrive at an ideal model.
 
 modelo = ExtraTreesClassifier()
 modelo.fit(restante_treino, stroke_treino)
 
-# A função “score” passa para o algoritmo os dados de teste, para que seja possível avaliar o seu desempenho.
+# The “score” function passes the test data to the algorithm, so that its performance can be evaluated.
 resultado = modelo.score(restante_teste, stroke_teste)
 print("Previsão de acertos (%):", resultado)
 
-# Exemplo: Selecionando aleatoriamente 10 amostras.
+# Example: Randomly selecting 10 samples.
 print("Amostras da coluna stroke: ", stroke_teste[100:110])
 
-# É possível comparar com as amostras selecionadas acima e verificar se o algoritmo acertou em sua previsão.
+# It is possible to compare with the samples selected above and verify that the algorithm was right in its prediction.
 previsoesDoAlgoritmo = modelo.predict(restante_teste[100:110])
 print("Previsões do Algoritmo: ", previsoesDoAlgoritmo)
