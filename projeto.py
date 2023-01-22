@@ -4,7 +4,7 @@ ________________________________________________________________________________
 |                                                                                           |
 |                    Project Title: Stroke Prediction With Machine Learning                 |
 |                                                                                           |
-|                         Yasmim Senden dos Santos 08/02/2022                               |
+|                         Yasmim Santos 08/02/2022                                          |
 |                                                                                           |
 |          Project Description: Apply the Decision Trees Machine Learning Algorithm         |
 |          to predict the chance of having a stroke or not, based on several factors.       |
